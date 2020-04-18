@@ -70,7 +70,7 @@
   >
   > 删除用户不保留目录
 
-*  权限管理
+* 权限管理
 
   > linux 文件分为七种
   >
@@ -126,7 +126,7 @@
   >
   > ![check](/home/ayjin/Documents/screenshot/check.png)
   >
-  > power link user group size lasttime name
+  > power link user group size lasttime 
 
   
 
@@ -144,5 +144,305 @@
 
   > chmod:用来修改某个目录或文件的访问权限。
   >
+  > sudo chmod a+x,g+x,o+x xxx.txt
+
+  ## 用户组的管理
+
+  >用户配置信息/etc/passwd
+  >
+  >![passwd](/home/ayjin/Documents/screenshot/passwd.png)
+  >
+  >用户名：密码x（已经加密的）:用户id：用户组id: 备注：家目录：用户shell
+  >
+  >组配置文件/etc/group
+  >
+  >![group](/home/ayjin/Documents/screenshot/group.png)
+  >
+  >组名：口令：组标识：组用户列表
+  >
+  >组配置信息（密码和登录信息）/etc/shadow
+  >
+  >![shadow](/home/ayjin/Documents/screenshot/message.png)
+  >
+  >用户名：口令：最后一次修改时间：最小时间间隔：最大时间间隔：警告时间：不活动时间：失效时间：标志
+  >
+  >创建用户组
+  >
+  >sudo groupadd xxx
+  >
+  >删除用户组
+  >
+  >sudo groupdel xxx
+  >
+  >添加新用户到用户组
+  >
+  >useradd -g 用户组 用户名（不指定组会默认创建到当前用户组内）
+  >
+  >查看当前用户所属组
+  >
+  >id xxx
+  >
+  >修改用户所属组
+  >
+  >usermod -g 用户组 用户名
+
+  >
+
+  ## 端口号查询
+
+  > lsof -i
+  >
+  > lsof -i:3306
+
+  ## 无线网络失效设置
+
+  > 查看是否默认开启
+  >
+  > sudo rfkill list all
+  >
+  > 开启
+  >
+  > sudo rfkill unblock wifi; 
+  >
+  > sudo rfkill unblock all
+  >
   > 
+
+## 实用指令
+
+> **指定运行级别**
+>
+> > ```undefined
+> > 运行级别0（关机）：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动 
+> > 运行级别1（单用户）：找回丢失密码，单用户工作状态，root权限，用于系统维护，禁止远程登陆 。
+> > 运行级别2（多用户）：多用户状态(没有网络服务) 
+> > 运行级别3（多用户）：完全的多用户状态(有网络服务)，登陆后进入控制台命令行模式 
+> > 运行级别4：系统未使用，保留 
+> > 运行级别5（图形界面）：X11控制台，登陆后进入图形GUI模式 
+> > 运行级别6（系统重启）：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动
+> > ```
+>
+> > 设置级别的目的是为了区分使用者
+> >
+> > 常用的实用模式是3 5 
+> >
+> > 系统的运行级别配置文件/etc/inittab
+> >
+> > 通过修改运行级别的对应配置文件重启即可进入对应的模式
+>
+> > 如何找回root密码
+> >
+> > 思路：进入单用户模式，然后修改root密码即可。因为进入单用户模式不需要密码就可以登录。
+> >
+> > 操作
+> >
+> > > 1、关机
+> > >
+> > > 2、进入kernel内核的命令行然后上网搜索修改模式的方案
+> > >
+> > > 3、进入模式后，然后passwd root
+> > >
+> > > 4、完成
+>
+> **帮助指令**
+>
+> > 当我们对某个指令不熟悉时们可以实用该指令进行
+> >
+> > man
+> >
+> > > man ls
+> >
+> > help 
+> >
+> > > help cd
+>
+> ## >指令与>>指令
+>
+> > **>**指令:输出重定向：会将原来的文件内容覆盖
+> >
+> > **>>**指令：不会覆盖 原来的内容，而是追加到文件的尾部
+> >
+> > 1、ls -l > a.txt 将ls -a 的输出结果写入并覆盖到a.txt文件
+> >
+> > ![ls>](/home/ayjin/Documents/screenshot/ls>.png)
+> >
+> > 2、ls -l >> a.txt
+> >
+> > ![ls>>](/home/ayjin/Documents/screenshot/ls>>.png)
+> >
+> > 3、cat a.txt > b.txt:将a文件的内容写入到b中
+> >
+> > ![cat>](/home/ayjin/Documents/screenshot/cat>.png)
+> >
+> > 4、echo "hello,echo" >> a.txt ::在a.txt的最后加一句hello,echo
+>
+> ## echo指令
+>
+> > echo:输出内容到控制台
+> >
+> > ![echo](/home/ayjin/Documents/screenshot/echo1.png)
+>
+> ## head指令
+>
+> > head a.txt(显示文件a的前十行)
+> >
+> > head -n a.txt(显示文件的前n行)
+>
+> ## tail指令
+>
+> > tail a.txt(显示文件a的后十行)
+> >
+> > tail -n a.txt(显示文件的后n行)
+> >
+> > tail -f a.txt(实时追踪该文档的所有更新。)
+>
+> ## ln指令 
+>
+> > ln也称软链接，类似于快捷方式，给图标提供一个路径。
+> >
+> > 基本语法ln -s 给原文件创建一个软链接
+> >
+> > ln -s /home/a.txt time:创建一个time的软件接到/home/a.txt
+> >
+> > ![ln](/home/ayjin/Documents/screenshot/lns.png)
+>
+> ## history指令
+>
+> > history:查看历史所有命令
+> >
+> > history10：查看最近10条指令
+> >
+> > !178:指令编号为178的指令
+>
+> ## find 指令
+>
+> > sudo find /home -name a.txt:在home目录下查找所有名为a.txt的文件
+> >
+> > ![findname](/home/ayjin/Documents/screenshot/findname.png) 
+> >
+> > sudo find /home -user ayjin -name a.txt:在home目录下查找文件名a.txt且属于ayjin用户的文件
+> >
+> > ![finduser](/home/ayjin/Documents/screenshot/finduser.png)
+> >
+> > sudo find /home size +1G:在home目录下查找文件大于1g的文件
+> >
+> > sudo find /home size -1G 小于1G 
+> >
+> > sudo find /home size 1G 等于1G
+> >
+> > ![findsize](/home/ayjin/Documents/screenshot/findsize.png)
+>
+> ## grep指令
+>
+> > grep过滤查找，管道符，“|”，表示将前一个命令的处理结果输出传递给后面的命令处理。
+> >
+> > 基本语法
+> >
+> > grep [选项] 查找内容 原文件
+> >
+> > cat time.txt | grep -ni yes
+> >
+> > 在time.txt文本中找到yes并显示行号
+> >
+> > -n:显示行号 -i 匹配方式不区分大小写
+> >
+> > ![grep](/home/ayjin/Documents/screenshot/grep.png)
+>
+> ## 压缩指令
+>
+> > gzip hello.txt
+> >
+> > 把hello.txt压缩为hello.txt.gz并删除了hello.txt文件
+> >
+> > gunzip hello.txt.gz
+> >
+> > 解压其并只有hello.txt文件
+>
+> > 如果是单个文件压缩
+> >
+> > zip test.zip test.txt 即可
+> >
+> > 如果是多个文件压缩需要递归压缩
+> >
+> > zip -r test.zip /home/Downloads/hello/*
+> >
+> > 解压
+> >
+> > unzip -d /home/Document/ test.zip : 将test.zip内的文件解压到/home/document中
+>
+> > tar指令 -> 生成tar.gz
+> >
+> > -z:打包同时压缩
+> >
+> > -c:产生tar打包文件
+> >
+> > -v:显示详细信息
+> >
+> > -f:指定压缩后的文件名
+> >
+> > -zcvf 表示
+> >
+> > 将a1.txt和a2.txt文件打包成a.tar.gz
+> >
+> > sudo tar -zcvf a.tar.gz a1.txt a2.txt
+> >
+> > ![tar1](/home/ayjin/Documents/screenshot/tar1.png)
+> >
+> >  将一个目录进行打包
+> >
+> > sudo tar -zcvf test.tar.gz test/
+> >
+> > ![tar](/home/ayjin/Documents/screenshot/tar2.png)
+> >
+> >  
+> >
+> > 解压
+> >
+> >  sudo tar -zxvf test.tar.gz -C /home/ayjin/downloads/
+> >
+> > 将test.tar.gz解压到downloads目录下
+>
+> ## 定时任务基本调度crontab
+>
+> > crontab -e 
+> >
+> > */1 * * * * date >> a1.txt 表示每一分钟都会将date命令执行结果加入到a1.txt中
+> >
+> > | 项目    | 含义               | 范围                  |
+> > | ------- | ------------------ | --------------------- |
+> > | 第一个* | 一个小时的第几分钟 | 0-59                  |
+> > | 第二个* | 一天当中的第几小时 | 0-23                  |
+> > | 第三个* | 一个月当中的第几天 | 1-31                  |
+> > | 第四个* | 一年当中的第几月   | 1-12                  |
+> > | 第五个* | 一周当中的星期几   | 0-7(0和7都表示星期天) |
+> >
+> > 特殊符号的说明
+> >
+> > 拿第一个*分钟来讨论:
+> >
+> > *表示一小时中每分钟都执行一次
+> >
+> > ,表示不连续的时间（0 8,12,16 * * *）表示每天的八点0分，12点0分，16点0分都执行一次命令。
+> >
+> > -表示连续的时间范围。(^0 5 * * 1-6)表示在周一到周六的凌晨5点0分执行命令。
+> >
+> > */n 表示每隔多久执行一次。比如^*  */10 * * * * 表示每隔10分钟就执行一次命令。
+> >
+> >  
+> >
+> > 实例：
+> >
+> > 1、编写一个shell脚本
+> >
+> > 2、给它可执行权限
+> >
+> > 3、添加到crontab中
+> >
+> > crontab -r 终止任务调度
+> >
+> > crontab -l 列出任务清单
+> >
+> > service crond restart 重启任务调度
+> >
+> > 
 
