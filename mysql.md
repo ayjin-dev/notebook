@@ -1,3 +1,54 @@
+## 概述
+
+数据管理
+
+> 人工管理：
+>
+> 文件系统管理：
+>
+> 数据库系统管理：
+>
+> | 111111111111 | 人工管理               | 文件系统管理         |      | 数据库管理                                             |
+> | :----------: | ---------------------- | -------------------- | ---- | ------------------------------------------------------ |
+> |   处理方式   | 批处理                 | 联机实施处理、批处理 |      | 联机实时处理、分布处理、批处理                         |
+> | 数据共享程度 | 无共享、冗余度极大     | 共享性差、冗余度大   |      | 共享性高、冗余度小                                     |
+> | 数据的独立性 | 不独立，完全依赖于程序 | 独立性差             |      | 具有高度的物理独立性一定的逻辑独立性                   |
+> | 数据控制能力 | 应用程序自己控制       | 应用程序自己控制     |      | 由数据库系统提供数据安全性、完整性、并发控制和恢复能力 |
+>
+> 
+>
+> 
+>
+> > DBMS数据库管理系统体系结构
+> >
+> > * 用户视图（外部级）-外模式
+> > * 全局视图（概念级）-概念模式
+> > * 存储视图（内部级）-内模式
+> >
+> > 其中外模式和概念模式--逻辑独立性
+> >
+> > 概念模式和内膜是--物理独立性
+> >
+> > 逻辑独立性和物理独立性共同保证了数据独立性
+
+## 数据库概念
+
+> 数据库：数据库是长期存储在**计算机**内，**有组织的、统一管理的、可共享的相关数据的集合**
+
+> 数据库管理系统
+
+> 数据库系统
+
+## 数据库系统体系结构
+
+> 三级模式结构
+>
+> > 外模式：
+>
+> > 概念模式
+>
+> > 内模式
+
 ## MYSQL
 
 > RDBMS-Relational Databases Management System
@@ -388,8 +439,238 @@
 > > > > select id as 序号,name as 姓名,height as 身高 from students; 
 > > > >
 > > > > ![demo1](/home/ayjin/Documents/notebook/img/demo1.png)
+> > >
+> > > ## 条件查询
+> > >
+> > > ![stumsg](/home/ayjin/Documents/notebook/img/studentsmsg.png)
+> > >
+> > > > 比较运算符`>`>=<=都可以
+> > > >
+> > > > 查询大于18岁的信息
+> > > >
+> > > > select * from students where age>18;
+> > > >
+> > > > select name,gender from students where age>18;
+> > >
+> > > > 逻辑运算符 and or not
+> > > >
+> > > > 18-28岁的学生信息
+> > > >
+> > > > select * from students where age>18 and age<28;
+> > > >
+> > > > 18岁以上或者身高超过180的
+> > > >
+> > > > select * from students where age>18 or tall>180;
+> > > >
+> > > > 不在18岁以上的女性
+> > > >
+> > > > select * from students where not (age>18 and gender='男');
+> > >
+> > > > 模糊查询 like rlike
+> > > >
+> > > > **like: %替换1个或多个 			_替换1个**
+> > > >
+> > > > 查询姓名中以 小开头的名字
+> > > >
+> > > > select name from students where name like "小%";
+> > > >
+> > > > 查询姓名中有 小的所有名字
+> > > >
+> > > > select name from students where name like "%小%";
+> > > >
+> > > > 查询有两个字的名字
+> > > >
+> > > > select name from students where name like "__"
+> > > >
+> > > > 查询有三个字的名字
+> > > >
+> > > > select name from students where name like "___"
+> > > >
+> > > > 查询至少两个字的名字
+> > > >
+> > > > select name from students where name like "__%"
+> > > >
+> > > > **rlike:正则表达查找**
+> > > >
+> > > > 查找以小开始的姓名
+> > > >
+> > > > select name from students where name rlike "^小.*";
+> > > >
+> > > > 查找以周开头伦结尾的姓名
+> > > >
+> > > > select name from students where name rlike "^周.*伦";
+> > > >
+> > > > ![rlis](/home/ayjin/Documents/notebook/img/rles.png)
+> > >
+> > > > 不连续查询
+> > > >
+> > > > 查找年龄为12、18、34的名字
+> > > >
+> > > > select name from students where age=12 or age=18 or age=34;
+> > > >
+> > > > select name from students where age in (12,18,34);
+> > > >
+> > > > 不是12、18、34的名字
+> > > >
+> > > > select name from students where age not in (12,18,34);
+> > >
+> > > > 连续查询between and 
+> > > >
+> > > > 查找年龄为18～34岁的名字
+> > > >
+> > > > select name from students where age between 18 and 34;
+> > > >
+> > > > 查找年龄不为18～34岁的名字
+> > > >
+> > > > select name from students where age not between 18 and 34;
+> > >
+> > > > 空判断
+> > > >
+> > > > 判断身高为空的信息
+> > > >
+> > > > select * from students where height is null;
+> > >
+> > > ## 排序
+> > >
+> > > > order by 字段
+> > > >
+> > > > asc从小到大 升序(默认)ascend 
+> > > >
+> > > > desc从大到小 降序descend
+> > > >
+> > > > 查询年龄在18-34岁之间的男性，按照年龄从小到大排序。
+> > > >
+> > > > select * from students where (age between 18 and 34) and gender=1;
+> > > >
+> > > > select * from students where (age between 18 and 34) and gender=1 order by age desc;
+> > > >
+> > > > 查询年龄在18-34岁之间的女性，按照身高从大到小排序。
+> > > >
+> > > > select * from students where (age between 18 and 34) and gender=2 order by height desc;
+> > > >
+> > > > order by 多个字段
+> > > >
+> > > > 查询年龄在18-34的女性，身高从高到矮，如果身高相同的情况下按照年龄从小到大排序。
+> > > >
+> > > > select * from students where (age between 18 and 34) and gender=2 order by height desc,age asc,id desc;
+> > >
+> > > ## 聚合函数
+> > >
+> > > > 总数count
+> > > >
+> > > > 查询男性有多少人
+> > > >
+> > > > select count(*) as 男性人数 from student where gender=1;
+> > > >
+> > > > ![count](/home/ayjin/Documents/notebook/img/count.png)
+> > > >
+> > > > 最大值max,min通用
+> > > >
+> > > > 查询年龄最大的是谁
+> > > >
+> > > > select max(age) from students;
+> > > >
+> > > > 查询女性最高身高
+> > > >
+> > > > select max(height) from students where gender=2;
+> > > >
+> > > > ![max](/home/ayjin/Documents/notebook/img/max.png)
+> > > >
+> > > > 求和：sum
+> > > >
+> > > > 求所有人年龄之和
+> > > >
+> > > > select sum(age) from students;
+> > > >
+> > > > 求平均值
+> > > >
+> > > > 求所有人年龄的平均值。
+> > > >
+> > > > select avg(age) from students;
+> > > >
+> > > > 四舍五入round(data,2)保留两位
+> > > >
+> > > > 求所有人年龄的平均值。
+> > > >
+> > > > select round(abg(age),2) from students;
+> > >
+> > > ## 分组
+> > >
+> > > > group by
+> > > >
+> > > > 按照性别分组，统计处各个性别的人数分配。
+> > > >
+> > > > select  gender,count(*) from students group by gender;
+> > > >
+> > > > ![groupby](/home/ayjin/Documents/notebook/img/groupby.png)
+> > > >
+> > > > 按照性别分组，统计处各个性别有哪些人。
+> > > >
+> > > > group_concat(name,age...)可以查看多种
+> > > >
+> > > > select gender,group_concat(name) from students group by gender;
+> > > >
+> > > > ![concat](/home/ayjin/Documents/notebook/img/concat.png)
+> > > >
+> > > > 按照性别分组，统计处各个性别的年龄分配.
+> > > >
+> > > > select gender,avg(age) from students group by gender;
+> > > >
+> > > > ![groupave](/home/ayjin/Documents/notebook/img/groupavg.png)
+> > > >
+> > > > 男性的详细信息
+> > > >
+> > > > select gender,group_concat(name,'_',age,'_',id) from students where gender=1 group by gender;
+> > > >
+> > > > ![mm](/home/ayjin/Documents/notebook/img/msggroup.png)
+> > > >
+> > > > ![rst2](/home/ayjin/Documents/notebook/img/rst2.png)
+> > > >
+> > > > having
+> > > >
+> > > > 查询平均年龄超过30岁的性别，以及姓名。
+> > > >
+> > > > select gender,group_concat(name) from students group by gender having avg(age)>30;
+> > > >
+> > > > 查询每种性别中的人数多于两个的信息。
+> > > >
+> > > > select gender,group_concat(name) from students group by gender having count(*)>2;
+> > > >
+> > > > **where 和 having的区别：**
+> > > >
+> > > > where使用分组前的筛选
+> > > >
+> > > > having 用于分组后的筛选
+> > >
+> > > ## 分页
+> > >
+> > > > limit start count
+> > > >
+> > > > limit限制查询出来的数据个数
+> > > >
+> > > > select * from students where gender=1 limit2;查找两个女性
+> > > >
+> > > > select * from students where gender=1 limit 0,5;从第0个开始查找，往下查5个。
+> > > >
+> > > > select * from students where gender=1 limit 5,5;从第5个开始查找，往下查5个。
+> > > >
+> > > > select * from students where gender=1 limit 10,5;从第10个开始查找，往下查5个。
+> > > >
+> > > > 每页显示2个，显示第六页的信息，按照年龄大小排序。
+> > > >
+> > > > select * from students order by age  limit 10,2;
+> > >
+> > > ## 连接查询
+> > >
+> > > > ![stumsg](/home/ayjin/Documents/notebook/img/studentsmsg.png)
+> > > >
+> > > > ![classes](/home/ayjin/Documents/notebook/img/classes.png)
+> > > >
+> > > > 链接查询：inner join ... on
+> > > >
+> > > > select * from students inner join classes
 > >
-> > ## 
+> > 
 > >
 > > 
 > >
