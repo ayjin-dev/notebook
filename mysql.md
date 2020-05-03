@@ -71,7 +71,7 @@
 >
 > 关系型数据库管理系统（管理数据库的软件）
 >
-> ![rdbmsuser](/home/ayjin/Documents/notebook/img/RDBMSuser.png)
+> ![rdbmsuser](./img/RDBMSuser.png)
 >
 > 从左到右
 >
