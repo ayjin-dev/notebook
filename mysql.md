@@ -306,9 +306,25 @@
 > > > >
 > > > > 修改字段：
 > > > >
+> > > > >  修改字段位置记得一定要带参数
+> > > > >
+> > > > >  alter table xxx modify column1 [记得带参]
+> > > > >
+> > > > >  column2;
+> > > > >
+> > > > >  ex:
+> > > > >
+> > > > >  alter table areas modify pid varchar(20)
+> > > > >
+> > > > >  after aid;
+> > > > >
+> > > > >  增加一个字段并制定位置
+> > > > >
+> > > > >  **alter** **table** areas **add** types1 tinyint(1) **default** "2" after pid;
+> > > > >
 > > > > >  alter table students modify birthday date;modify->修改
 > > > > >
-> > > > > 修改表students中birthday字段数据类型为date.
+> > > > >  修改表students中birthday字段数据类型为date.
 > > > >
 > > > > > alter table students change birthday birth date default "1990-01-01";
 > > > > >
@@ -666,9 +682,89 @@
 > > > >
 > > > > ![classes](./img/classes.png)
 > > > >
-> > > > 链接查询：inner join ... on
+> > > > 链接查询：inner join ... on（表与表的链接）
 > > > >
 > > > > select * from students inner join classes
+> > > >
+> > > > **交集**-内连接
+> > > >
+> > > > 查询有能够对应班级的学生以及班级信息
+> > > >
+> > > > select * from students inner join classes on students.cls_id=classes.id;
+> > > >
+> > > > ![inner1](./img/inner1.png)
+> > > >
+> > > > 按要求显示对应另一个表的编号、班级
+> > > >
+> > > > select students.*, classes.name,classes.id from students inner join classes on students.cls_id=classes.id;
+> > > >
+> > > > 给数据表起名字
+> > > >
+> > > > select s.name,c.name from students as s inner join classes as c on s.cls_id=c.id;
+> > > >
+> > > > ![inner1](./img/inner1.png)
+> > > >
+> > > > **并集**
+> > > >
+> > > > 查询有能够对应班级的学生以及班级信息，按照班级进行排序，若为同班级按照id进行排序。
+> > > >
+> > > > select c.name, s.* from students as s inner join classses as c on s.cls_id=c.id order by c.name,s.id;
+> > > >
+> > > > ![inner2](./img/inner2.png)
+> > > >
+> > > > 外连接
+> > > >
+> > > > 以left join左边为基准，未能匹配则为默认填空
+> > > >
+> > > > select * from students as s left join classes as c on s.cls_id=c.id;
+> > > >
+> > > > ![inner3](./img/inner3.png)
+> > > >
+> > > > 查询没有对应班级的学生
+> > > >
+> > > > select * from students as s left join classes as c on s.cls_id=c.id where c.id is null;
+> > > >
+> > > > ![inner4](./img/inner4.png)
+> > >
+> > > ## 自关联
+> > >
+> > > > 表示通过一张表实现逻辑关联查询，类似于省-市-县
+> > > >
+> > > > ![areas](./img/areas.png)
+> > > >
+> > > > ![areas1](./img/areas1.png)
+> > >
+> > > 子查询
+> > >
+> > > > 查询江西省有哪些市
+> > > >
+> > > > select * from areas as province inner join areas as city on city.pid=province.aid having province.atitle="江西";
+> > > >
+> > > > select province.atitle,city.atitle from areas as province inner join areas as city on city.pid=province.aid having province.atitle="江西";
+> > > >
+> > > > 查询最高的男生信息
+> > > >
+> > > > select * from students where height=(select max(height) from students);
+> > >
+> > > ## 数据库设计
+> > >
+> > > > * 关系型数据库建议在E-R模型的基础上，我们需要根据产品经理的设计策划，抽取出来模型和关系，制定出表结构。
+> > > > * 在开发中右很多设计数据库的软件，常用的入power designer,db designer等，这些软件可以只管得看到实体及实体间的关系。
+> > > > * 设计数据库可能由专人来完成，也可能让开发组的人完成。
+> > > >
+> > > > ## 三范式
+> > > >
+> > > > * 经过研究和对使用中的问题的总结，对于设计数据库提出了一些规范，这些规范称为范式。
+> > > >
+> > > > * 目前有迹可循的共有8种范式，一般需要遵守3范式即可
+> > > >
+> > > >   > * 第一范式
+> > > >   > * 第二范式
+> > > >   > * 第三范式
+> > > >
+> > > > **E-R模型**：Entity-relationship model实体联系模型
+> > > >
+> > > > > 
 > >
 > > 
 > >
