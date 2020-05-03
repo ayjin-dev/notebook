@@ -71,7 +71,7 @@
 >
 > 关系型数据库管理系统（管理数据库的软件）
 >
-> ![rdbmsuser](/home/ayjin/Documents/notebook/img/RDBMSuser.png)
+> ![rdbmsuser](./img/RDBMSuser.png)
 >
 > 从左到右
 >
@@ -223,25 +223,25 @@
 > > >
 > > > 查看数据库: show databases;
 > > >
-> > > ![showdatebases](/home/ayjin/Documents/notebook/img/showdbs.png)
+> > > ![showdatebases](./img/showdbs.png)
 > > >
 > > > 使用该数据库：use 数据库名;
 > > >
 > > > 查看当前时间：select now()
 > > >
-> > > ![time](/home/ayjin/Documents/notebook/img/now.png)
+> > > ![time](./img/now.png)
 > > >
 > > > 查看数据库版本：select version();
 > > >
-> > > ![version](/home/ayjin/Documents/notebook/img/version.png)
+> > > ![version](./img/version.png)
 > > >
 > > > 创建数据库：create database python04 charset=utf8mb4;
 > > >
-> > > ![cdb](/home/ayjin/Documents/notebook/img/createdb.png)
+> > > ![cdb](./img/createdb.png)
 > > >
 > > > 查看数据库创建情况：show create database python04;
 > > >
-> > > ![scdb](/home/ayjin/Documents/notebook/img/scdb.png)
+> > > ![scdb](./img/scdb.png)
 > > >
 > > > 删除数据库：drop database python04;
 > > >
@@ -257,7 +257,7 @@
 > > >
 > > > 查看已经选择的数据库：select database();
 > > >
-> > > ![subd](/home/ayjin/Documents/notebook/img/susedb.png)
+> > > ![subd](./img/susedb.png)
 > > >
 > > > 查看当前数据库中的所有表：show tables;
 > > >
@@ -267,11 +267,11 @@
 > > > >
 > > > > `create table yyy(id int primary key not null auto_increment,name varchar(30));`这里创建了名为yyy的表且名为id这int类型设为主键不允许为空自增长。
 > > > >
-> > > > ![mtbs](/home/ayjin/Documents/notebook/img/mtable.png)
+> > > > ![mtbs](./img/mtable.png)
 > > >
 > > > 查看表的结构：desc xxx;description描述
 > > >
-> > > ![desc](/home/ayjin/Documents/notebook/img/desc.png)
+> > > ![desc](./img/desc.png)
 > > >
 > > > 实例：创建一个students表（id name age high gender cls_id）
 > > >
@@ -286,19 +286,19 @@
 > > > );
 > > > ```
 > > >
-> > > ![mtst](/home/ayjin/Documents/notebook/img/mtst.png)
+> > > ![mtst](./img/mtst.png)
 > > >
 > > > 插入数据：`insert into students values(0,"wang",18,188.88,"男",26)`
 > > >
-> > > ![insert](/home/ayjin/Documents/notebook/img/insert.png)
+> > > ![insert](./img/insert.png)
 > > >
 > > > 查看表中数据：```select * from students;```
 > > >
-> > > ![select](/home/ayjin/Documents/notebook/img/select.png)
+> > > ![select](./img/select.png)
 > > >
 > > > 查看创建表的语句：show create table students;
 > > >
-> > > ![scts](/home/ayjin/Documents/notebook/img/shcrstus.png)
+> > > ![scts](./img/shcrstus.png)
 > > >
 > > > 修改表结构：
 > > >
@@ -336,7 +336,7 @@
 > > > >
 > > > > 多行插入：insert into students(name,gender) values("表格","女")，("表格","女")
 > > > >
-> > > > ![insert](/home/ayjin/Documents/notebook/img/insertsum.png)
+> > > > ![insert](./img/insertsum.png)
 > > >
 > > > 修改数据
 > > >
@@ -438,11 +438,11 @@
 > > > >
 > > > > select id as 序号,name as 姓名,height as 身高 from students; 
 > > > >
-> > > > ![demo1](/home/ayjin/Documents/notebook/img/demo1.png)
+> > > > ![demo1](./img/demo1.png)
 > > >
 > > > ## 条件查询
 > > >
-> > > ![stumsg](/home/ayjin/Documents/notebook/img/studentsmsg.png)
+> > > ![stumsg](./img/studentsmsg.png)
 > > >
 > > > > 比较运算符`>`>=<=都可以
 > > > >
@@ -500,7 +500,7 @@
 > > > >
 > > > > select name from students where name rlike "^周.*伦";
 > > > >
-> > > > ![rlis](/home/ayjin/Documents/notebook/img/rles.png)
+> > > > ![rlis](./img/rles.png)
 > > >
 > > > > 不连续查询
 > > > >
@@ -562,7 +562,7 @@
 > > > >
 > > > > select count(*) as 男性人数 from student where gender=1;
 > > > >
-> > > > ![count](/home/ayjin/Documents/notebook/img/count.png)
+> > > > ![count](./img/count.png)
 > > > >
 > > > > 最大值max,min通用
 > > > >
@@ -574,7 +574,7 @@
 > > > >
 > > > > select max(height) from students where gender=2;
 > > > >
-> > > > ![max](/home/ayjin/Documents/notebook/img/max.png)
+> > > > ![max](./img/max.png)
 > > > >
 > > > > 求和：sum
 > > > >
@@ -602,7 +602,7 @@
 > > > >
 > > > > select  gender,count(*) from students group by gender;
 > > > >
-> > > > ![groupby](/home/ayjin/Documents/notebook/img/groupby.png)
+> > > > ![groupby](./img/groupby.png)
 > > > >
 > > > > 按照性别分组，统计处各个性别有哪些人。
 > > > >
@@ -610,21 +610,21 @@
 > > > >
 > > > > select gender,group_concat(name) from students group by gender;
 > > > >
-> > > > ![concat](/home/ayjin/Documents/notebook/img/concat.png)
+> > > > ![concat](./img/concat.png)
 > > > >
 > > > > 按照性别分组，统计处各个性别的年龄分配.
 > > > >
 > > > > select gender,avg(age) from students group by gender;
 > > > >
-> > > > ![groupave](/home/ayjin/Documents/notebook/img/groupavg.png)
+> > > > ![groupave](./img/groupavg.png)
 > > > >
 > > > > 男性的详细信息
 > > > >
 > > > > select gender,group_concat(name,'_',age,'_',id) from students where gender=1 group by gender;
 > > > >
-> > > > ![mm](/home/ayjin/Documents/notebook/img/msggroup.png)
+> > > > ![mm](./img/msggroup.png)
 > > > >
-> > > > ![rst2](/home/ayjin/Documents/notebook/img/rst2.png)
+> > > > ![rst2](./img/rst2.png)
 > > > >
 > > > > having
 > > > >
@@ -662,9 +662,9 @@
 > > >
 > > > ## 连接查询
 > > >
-> > > > ![stumsg](/home/ayjin/Documents/notebook/img/studentsmsg.png)
+> > > > ![stumsg](./img/studentsmsg.png)
 > > > >
-> > > > ![classes](/home/ayjin/Documents/notebook/img/classes.png)
+> > > > ![classes](./img/classes.png)
 > > > >
 > > > > 链接查询：inner join ... on
 > > > >
