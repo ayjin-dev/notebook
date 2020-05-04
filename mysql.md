@@ -764,7 +764,150 @@
 > > > >
 > > > > **E-R模型**：Entity-relationship model实体联系模型
 > > > >
-> > > > > 
+> > >
+> > > ## 实战
+> > >
+> > > > 数据准备
+> > > >
+> > > > create database jing_dong charset = utf8mb4;
+> > > >
+> > > > use jing_dong;
+> > > >
+> > > > # 商品表
+> > > > create table goods(
+> > > >     id int unsigned primary key auto_increment not null,
+> > > >     name varchar(150) not null,
+> > > >     cate_name varchar(40) not null, #类别名
+> > > >     brand_name varchar(50) not null, #品牌名
+> > > >     price decimal(10,3) not null default 0,
+> > > >     is_show bit not null default 1, #是否显示
+> > > >     is_saleoff bit not null default 0 #是否售馨
+> > > > );
+> > > >
+> > > > insert into goods values (0,'r510vc 15.6英寸笔记本','笔记本','华硕','3399',default,default),
+> > > >                          (0,'y400n 14.0英寸笔记本电脑','笔记本','联想','4999',default,default),
+> > > >                          (0,'g150th 15.6英寸笔记本','游戏本','雷神','8499',default,default),
+> > > >                          (0,'x550cc 15.6英寸笔记本','笔记本','华硕','2799',default,default),
+> > > >                          (0,'x240 超级本','超级本','联想','4880',default,default),
+> > > >                          (0,'u330p 13.3英寸超级本','超级本','联想','4299',default,default),
+> > > >                          (0,'svp13226scb 触控超级本','超级本','索尼','7999',default,default),
+> > > >                          (0,'ipad mini 7.9英寸平板电脑','平板电脑','苹果','1998',default,default),
+> > > >                          (0,'ipad air 9.7英寸平板电脑','平板电脑','苹果','3388',default,default),
+> > > >                          (0,'ipad mini 配备retina显示屏','平板电脑','苹果','2788',default,default),
+> > > >                          (0,'ideacentre c340 20英寸一体电脑','台式机','联想','3499',default,default),
+> > > >                          (0,'vostro 3800-r1206 台式电脑','台式机','戴尔','2899',default,default),
+> > > >                          (0,'imac me086ch/a 21.5英寸一体电脑','台式机','苹果','9188',default,default),
+> > > >                          (0,'at7-7414lp 台式电脑 linux','台式机','苹果','3699',default,default),
+> > > >                          (0,'z220sff f4f06pa工作站','服务器/工作站','惠普','4288',default,default),
+> > > >                          (0,'powereedge ii服务器','服务器/工作站','戴尔','5388',default,default),
+> > > >                          (0,'mac pro专业级台式电脑','服务器/工作站','苹果','28888',default,default),
+> > > >                          (0,'hmz-t3w 头戴显示设备','笔记本配件','索尼','6999',default,default),
+> > > >                          (0,'商务双肩背包','笔记本配件','索尼','99',default,default),
+> > > >                          (0,'x3250 m4机架式服务器','服务器/工作站','ibm','6888',default,default),
+> > > >                          (0,'商务双肩背包','笔记本配件','索尼','99',default,default);
+> > > >
+> > > > select * from goods;
+> > > >
+> > > > ![demo2](./img/demo2.png)
+> > > >
+> > > > SQL语句实战：
+> > > >
+> > > > * 1查找超级本：select * from goods where cate_name='笔记本';
+> > > > * 2查看品牌的分类：select distinct brand_name from goods;
+> > > >
+> > > > ![demo3](./img/demo3.png)
+> > > >
+> > > > * 3求所有电脑的平均价格：select avg(price) from goods;
+> > > >
+> > > > * 4求所有电脑的平均价格并保留2位小数：
+> > > >
+> > > >   select round(avg(price),2) from goods;
+> > > >
+> > > > * 5显示每种商品的平均价格：
+> > > >
+> > > >   **select** cate_name,avg(price) **from** goods **group** **by** cate_name; 
+> > > >
+> > > >   ![demo4](./img/demo4.png)
+> > > >
+> > > > * 6显示每种类型的商品中，最贵、最便宜、平均价、数量：select cate_name,max(price) as 最贵,min(price) as 最便宜,avg(price) as 平均,count(*) as 数量 from goods group by cate_name;
+> > > >
+> > > > * 查询所有价格大于平均价格的商品，并且按价格降序排序：
+> > > >
+> > > >   select id,name,price from goods where price > (select round(avg(price),2) as avg_price from goods) order by price desc;
+> > > >
+> > > >   ![demo5](./img/demo5.png)
+> > > >
+> > > > * 查询每种最贵的商品的信息：
+> > > >
+> > > >   select * from (select cate_name,max(price) as max_price from goods group by cate_name) as g_new left join goods as g on g_new.cate_name=g.cate_name and g_new.max_price=g.price;
+> > > >
+> > > >   ![demo6](./img/demo6.png)
+> > > >
+> > > > ## 商品分类表
+> > > >
+> > > > * create table if not exists goods_cates(
+> > > >
+> > > >   id int unsigned primary key auto_increment,name varchar(40) not null);
+> > > >
+> > > > * 查询goods表中商品的种类
+> > > >
+> > > >   select cate_name from goods group by cate_name;
+> > > >
+> > > > * 将分组结果写入到goods_cates数据表中
+> > > >
+> > > >   insert into goods_cates(name) **select cate_name from goods group by cate_name;**注意这里不用values
+> > > >
+> > > >   ![demo7](./img/demo7.png)
+> > > >
+> > > > * 同步表数据通过goods_cates数据表来更新goods表
+> > > >
+> > > > * update goods as g inner join goods_cates as c on g.cate_name=c.name set g.cate_name=c.id;
+> > > >
+> > > > ![demo8](./img/demo8.png)
+> > > >
+> > > > * 更改表结构：alter table good change cate_name cate_id int unsigned not null;
+> > > >
+> > > > * 设置外键。关联cate_id和表goods_cate的id
+> > > >
+> > > >   alter table goods add foreign key (cate_id) references goods_cates(id);
+> > > >
+> > > > 练习题：
+> > > >
+> > > > > create table goods_brands(
+> > > > >
+> > > > > id int unsigned primary key auto_increment,
+> > > > >
+> > > > > name varchar(40) not null) select brand_name as name from goods group by brand_name;
+> > > > >
+> > > > > ![demo9](./img/demo9.png)
+> > > > >
+> > > > > update goods as g inner join goods_brands as b on g.brand_name=b.name set g.brand_name=b.id;
+> > > > >
+> > > > > **alter** **table** goods **change** brand_name brand_id int **unsigned** **not** null;
+> > > > >
+> > > > > 最后添加外键
+> > > > >
+> > > > > alter table goods add foreign key (brand_id) references goods_brands(id);
+> > > > >
+> > > > > 取消外键约束
+> > > > >
+> > > > > show create table goods;
+> > > > >
+> > > > > alter table goods drop foreign key 外键名称;
+> > > >
+> > > > 
+> > > >
+> > > > 
+> > > >
+> > > > ## 订单表
+> > > >
+> > > > create table orders(
+> > > >     id int unsigned primary key  auto_increment not null ,
+> > > >     order_data_time datetime not null ,
+> > > >     customers_id int unsigned not null
+> > > > );
+> > > >
+> > > > 
 > >
 > > 
 > >
