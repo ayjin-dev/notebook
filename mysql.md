@@ -905,13 +905,19 @@
 > > > >     id int unsigned primary key  auto_increment not null ,
 > > > >     order_data_time datetime not null ,
 > > > >     customers_id int unsigned not null
-> > > > );
-> > > >
-> > > > 
-> >
+> > > > )
+> > 
 > > 
 > >
 > > 
 > >
 > > 
+
+### 补充
+
+union
+
+将两个输出结果联合到一张表上
+
+select * from xxx where id = 1 union select 2,databases();
 
