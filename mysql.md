@@ -906,7 +906,136 @@
 > > > >     order_data_time datetime not null ,
 > > > >     customers_id int unsigned not null
 > > > > )
-> > 
+> > >
+> > > ### 视图
+> > >
+> > > > 虚拟的表。视图就是一条select语句执行后返回的结果集。
+> > > >
+> > > > create view name as [sql执行后返回的结果集]
+> > > >
+> > > > 然后你就会发现多了一张name表。
+> > > >
+> > > > 综上所述，视图的作用是将查询出来的表存取为新的表，并可以跟随关联表的改动而改动。
+> > >
+> > > ### 事务
+> > >
+> > > > **ACID**
+> > > >
+> > > > * 原子性Atomicity
+> > > >
+> > > >   > 一个事务必须被视为一个不可分割的最小工作单元，整个事务中的所有操作要么全部提交成功，要么全部失败回滚，对于一个事务来说，必须是整体都完成，
+> > > >
+> > > > * 一致性Consistency
+> > > >
+> > > >   > 数据库总是从一个一致性的状态转换到另一个一致性的状态。表示不会因为一个整体过程中某一步执行完车就改变某一步的数据，
+> > > >
+> > > > * 隔离性Isolation
+> > > >
+> > > >   > 一个事务所做的修改在最终提交以前，对其他事务是不可见的。
+> > > >
+> > > > * 持久性Durability
+> > > >
+> > > >   > 一旦事务提交，无论如何，所做的修改也不会丢失。
+> > > >
+> > > >   操作：
+> > > >
+> > > >   > start transaction;或者begin;
+> > > >   >
+> > > >   > sql1;
+> > > >   >
+> > > >   > sql2;
+> > > >   >
+> > > >   > commit;
+> > > >   >
+> > > >   > 回滚：rollback;
+> > >
+> > > ### 索引
+> > >
+> > > > 通俗的来说，数据库的索引就像是一本书的目录，在面临数据量巨大的情况下能够优化查询速度。
+> > >
+> > > 开启运行时间检测：set profiling=1;
+> > >
+> > > select * from test_index where title=''"
+> > >
+> > > 显示运行时间：show profiles;
+> > >
+> > > 为表创建索引
+> > >
+> > > create index title_index on test_index(title(10))
+> > >
+> > > ### 账户管理
+> > >
+> > > > mysql账户体系
+> > > >
+> > > > * 服务实例级账户：root
+> > > > * 数据库级别账户：对指定的数据库进行增删改查
+> > > > * 数据表级别账户：对指定的表执行增删改查
+> > > > * 字段级别：对指定表的字段进行增删改查
+> > > > * 存储程序级别的账户：对存储程序的增删改查
+> > > >
+> > > > 账户的操作主要包括创建账户、删除账户、修改密码、授权权限等等
+> > > >
+> > > > 但在涉及到账户操作的时候，需要使用root账户登录，这个账户拥有最高权限。
+> > > >
+> > > > **通常只分配数据库级别账户给予权限**
+> > > >
+> > > > 数据库信息存储在数据库mysql表user中
+> > > >
+> > > > | user  | host      | authentication_string |
+> > > > | ----- | --------- | --------------------- |
+> > > > | root  | localhost | sdsadasdsadasdas      |
+> > > > | slave | %         | dasdasdsaadasdasdas   |
+> > > >
+> > > > 其中%表示任意一台主机都可以登录
+> > > >
+> > > > localhost表示只允许本机登录
+> > > >
+> > > > 密码就在authentication_string中，这里采用了加密（hash or md5）
+> > > >
+> > > > * 创建账户&授权
+> > > >
+> > > >   > grant 授权列表 on 数据库 to '用户名'@'访问主机' identified by '密码';
+> > > >   >
+> > > >   > 
+> > > >   >
+> > > >   > demo:创建一个laowang的账户，密码123456，只能通过本地访问，只能对jing_dong数据库中的所有表进行操作。
+> > > >   >
+> > > >   > grant select on jing_dong.* to 'laowang'@'localhost' identified by '123456';
+> > > >   >
+> > > >   > select on jing_dong.*表示laowang只可以对这个表进行查询。
+> > > >   >
+> > > >   > update on jing_dong.*表示可以修改数据
+> > > >   >
+> > > >   > 
+> > > >   >
+> > > >   > demo:创建一个laoli的账号，密码为12345678，可以任意电脑进行链接访问，并且对jing_dong数据库中所有表拥有权限
+> > > >   >
+> > > >   > grant all privileges on jing_dong.* to 'laoli'@'%' identified by '12345678'
+> > > >
+> > > >   修改权限
+> > > >
+> > > >   > grant 权限名称 on 数据库 to '账户'@'主机' With grant option;
+> > > >   >
+> > > >   > flush privileges;
+> > > >
+> > > >   修改密码
+> > > >
+> > > >   > update user set authentication_string=password('新密码') where user='用户';
+> > > >   >
+> > > >   > flush privileges;
+> > > >
+> > > >   远程登陆
+> > > >
+> > > >   > sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+> > > >   >
+> > > >   > 注释掉bind-addr=127.0.0.1
+> > > >   >
+> > > >   > service mysql restart
+> > > >
+> > > >   删除账户
+> > > >
+> > > >   > drop user '用户名'@'主机';
+> >
 > > 
 > >
 > > 
@@ -920,4 +1049,14 @@ union
 将两个输出结果联合到一张表上
 
 select * from xxx where id = 1 union select 2,databases();
+
+导出数据库:
+
+mysqldump -u root -p dbname > test
+
+只导出表结构:
+
+mysqldump -u用户名 -p密码 -d 数据库名 > 数据库名.sql
+
+
 
