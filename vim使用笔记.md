@@ -11,8 +11,9 @@ ln -s /home/ayjin/.vim/vimrc /home/root/.vim/vimrc
 > ***普通模式***
 >
 > > Ese 然后：输入指令
-> >
-> > 
+> > u：返回上一个操作。
+> > p:粘贴
+> > yy:复制一整行
 
 > ***插入模式***
 >
