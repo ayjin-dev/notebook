@@ -53,3 +53,31 @@
 > 同步您的Github远程仓库，默认在您的master分支上
 >
 > git push origin master
+
+创建分支：
+
+> git checkout -b login//创建一个login分支
+
+查看当前分支：
+
+> git branch
+
+切换到主分支：
+
+> git checkout master
+
+合并login分支：
+
+> git merge login
+
+远程推送：
+
+> git push 
+
+把本地的login分支推到远程：
+
+> git checkout login
+>
+> git branch//检查是否切换成功
+>
+> git push -u origin login //这里把我们本地的分支推到远程并且命名为login
