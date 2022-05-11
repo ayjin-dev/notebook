@@ -17,16 +17,16 @@
 `copy id_rsa.pub`
 3. 检查是否连接成功，如下图即成功链接
 `ssh -T git@github.com` 
-![ssh](./git_img/ssh_T.png)
+![ssh](./img/git_img/ssh_T.png)
 
 
 ### Git模型
-![Git模型](./git_img/git_map.png)
+![Git模型](./img/git_img/git_map.png)
 Remote Directory 远程仓库，即Github Repo
 History 本地仓库，还没Push到远程仓库
 Stage(Index) 即暂存区，还没commit到本地仓库
 Working Directory 即你本地代码存放的文件夹
-![git model](./git_img/git_map_b.png)
+![git model](./img/git_img/git_map_b.png)
 
 所以我们的工作流程就是，也就对应着文件拥有四种状态:
 1. 创建文件，在Working中Coding | filestauts:Untracked
@@ -75,8 +75,8 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 ### git分支
 这部分引用狂神的git进行解释。
 分支在GIT中相对较难，分支就是科幻电影里面的平行宇宙，如果两个平行宇宙互不干扰，那对现在的你也没啥影响。不过，在某个时间点，两个平行宇宙合并了，我们就需要处理一些问题了！
-![branch_a](./git_img/branch_a.png)
-![branch_b](./git_img/branch_b.png)
+![branch_a](./img/git_img/branch_a.png)
+![branch_b](./img/git_img/branch_b.png)
 
 常用命令
 1. 列出所有本地分支
@@ -103,3 +103,8 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 2. 查看本地全局配置,如用户名、邮箱.
 `git config --global --list`
 
+
+### 日常使用记录
+1. 关于提示`git push --set-upstream origin dev`的问题。⏲️2022-05-11
+这是作者在本地创建了一个新的dev分支想直接git push到github上面时返回的提示，经过资料查阅得知，这是因为作者原仓库仅存在master分支，导致无法追溯到我想push的dev分支，所以需要set-upstream origin，这里的origin表示创建`git push origin xxx`表示创建xxx分支并上传，set-upstream表示关联到改分支。
+综上所述，`git push --set-upstream origin dev`表示创建dev分支并设置为上游分支。
