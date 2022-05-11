@@ -106,9 +106,10 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 
 ### 日常使用记录
 1. 关于提示`git push --set-upstream origin dev`的问题。⏲️2022-05-11
-
->这是作者在本地创建了一个新的dev分支想直接git push到github上面时返回的提示，经过资料查阅得知，这是因为作者原仓库仅存在master分支，导致无法追溯到我想push的dev分支，所以需要set-upstream origin，这里的origin表示创建`git push origin xxx`表示创建xxx分支并上传，set-upstream表示关联到改分支。
+```
+这是作者在本地创建了一个新的dev分支想直接git push到github上面时返回的提示，经过资料查阅得知，这是因为作者原仓库仅存在master分支，导致无法追溯到我想push的dev分支，所以需要set-upstream origin，这里的origin表示创建`git push origin xxx`表示创建xxx分支并上传，set-upstream表示关联到改分支。
 综上所述，`git push --set-upstream origin dev`表示创建dev分支并设置为上游分支。
+```
 2. 关于分支dev同步到master分支中。⏲️2022-05-11
 ```
 1. 先切换到dev分支，git checkout dev 
@@ -116,4 +117,10 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 3. 切换回主分支 git checkout master
 4. 合并分支 git merge dev
 5. 上传到远程代码 git push
+```
+3. 关于问题2`git merge`后`git push`中出现的问题。⏲️2022-05-11
+![question3](./img/git_img/question3.png)
+```
+原因：github上面的版本与本地版本冲突
+解决方案：`git push -u origin master -f` 强行覆盖(注意此企业中慎用，可能会造成远程数据丢失！)
 ```
