@@ -109,7 +109,7 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 
 >这是作者在本地创建了一个新的dev分支想直接git push到github上面时返回的提示，经过资料查阅得知，这是因为作者原仓库仅存在master分支，导致无法追溯到我想push的dev分支，所以需要set-upstream origin，这里的origin表示创建`git push origin xxx`表示创建xxx分支并上传，set-upstream表示关联到改分支。
 综上所述，`git push --set-upstream origin dev`表示创建dev分支并设置为上游分支。
-2. 关于分支dev同步到master分支中
+2. 关于分支dev同步到master分支中。⏲️2022-05-11
 ```
 1. 先切换到dev分支，git checkout dev 
 2. 然后拉取远程dev分支代码 git pull 
