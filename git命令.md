@@ -106,5 +106,6 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 
 ### 日常使用记录
 1. 关于提示`git push --set-upstream origin dev`的问题。⏲️2022-05-11
-这是作者在本地创建了一个新的dev分支想直接git push到github上面时返回的提示，经过资料查阅得知，这是因为作者原仓库仅存在master分支，导致无法追溯到我想push的dev分支，所以需要set-upstream origin，这里的origin表示创建`git push origin xxx`表示创建xxx分支并上传，set-upstream表示关联到改分支。
+
+>这是作者在本地创建了一个新的dev分支想直接git push到github上面时返回的提示，经过资料查阅得知，这是因为作者原仓库仅存在master分支，导致无法追溯到我想push的dev分支，所以需要set-upstream origin，这里的origin表示创建`git push origin xxx`表示创建xxx分支并上传，set-upstream表示关联到改分支。
 综上所述，`git push --set-upstream origin dev`表示创建dev分支并设置为上游分支。
