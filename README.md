@@ -4,7 +4,8 @@
 
 > 这是作者自己平时学一些奇奇怪怪的东西的时候做的一些笔记:stuck_out_tongue_winking_eye:
 
-1. [GIT学习](./git%E5%91%BD%E4%BB%A4.md)
+1. [Fine-Tuning](./Fine-tuning.md)
+2. [GIT学习](./git%E5%91%BD%E4%BB%A4.md)
 2. [Linux学习](./linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.md)
 3. [Shell学习](./SHELL%E5%AD%A6%E4%B9%A0.md)
 4. [Vim学习](./vim%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0.md)
